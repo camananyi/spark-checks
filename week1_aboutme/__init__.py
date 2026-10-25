@@ -1,9 +1,15 @@
 import ast
 import io
+import multiprocessing
 import re
+import sys
 import tokenize
 
 import check50
+
+# Python 3.14 switched Linux to "forkserver" processes, which breaks check50 3.5.0; go back to "fork"
+if sys.platform != "win32":
+    multiprocessing.set_start_method("fork", force=True)
 
 FILE = "week1_aboutme.py"
 # Numeric test answers, so programs that use int() or float() on an input still work
